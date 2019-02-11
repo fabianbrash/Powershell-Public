@@ -44,6 +44,29 @@ if($PwrdOn.PowerState -eq "PoweredOn") {
 
  $vmview.ReconfigVM($vmConfigSpec)
  
+ 
+ ##Let's enable EFI
+
+ $vm = Get-VM -Name $theVM
+
+
+ $spec1 = New-Object VMware.Vim.VirtualMachineConfigSpec
+ $spec1.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::efi
+ $vm.ExtensionData.ReconfigVM($spec1)
+
+
+
+ ###New let's set Secureboot
+ 
+
+ $spec = New-Object VMware.Vim.VirtualMachineConfigSpec
+ $bootOptions = New-Object VMware.Vim.VirtualMachineBootOptions
+ $bootOptions.EfiSecureBootEnabled = $true
+ $spec.BootOptions = $bootOptions
+ $vm.ExtensionData.ReconfigVM($spec)
+
+ Start-Sleep -Seconds 2
+ 
  <##Now that's all done let's start up our VM#>
  Start-VM -VM $theVM -Confirm:$false
  
