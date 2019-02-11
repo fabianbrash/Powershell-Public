@@ -84,7 +84,7 @@ if($PwrdOn.PowerState -eq "PoweredOn") {
      <#Set-VM -VM $vm -HardwareVersion v14 -confirm:$false#> <#Preferred method#>
  }
 
- <# Note because "NestedHVEnabled" is apart of VirtualMachineConfigSpec we can just assing it a value
+ <# Note because "NestedHVEnabled" is apart of VirtualMachineConfigSpec we can just assign it a value
  ## while VbsEnabled & VvtEnabled is apart of VirtualMachineFlagInfo so we have to create an object
  ## first and then assign it a value, I need to get used to doing this more, it is very powerful
  #>
