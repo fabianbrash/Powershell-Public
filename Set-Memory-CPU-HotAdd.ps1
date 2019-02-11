@@ -65,6 +65,30 @@ if($PwrdOn.PowerState -eq "PoweredOn") {
  $spec.BootOptions = $bootOptions
  $vm.ExtensionData.ReconfigVM($spec)
 
+
+ ###SET VBS note the VM must be on harware version 14
+
+ $VMHWVersion = Get-VM -Name $theVM | Select -ExpandProperty Version
+
+ if(-not($VMHWVersion -eq "v14") ) {
+     
+     #Write-Host "WRONG VERSION MUST BE ON HW 14" -ForegroundColor Cyan
+     Throw "WRONG VERSION MUST BE ON HW 14"
+ }
+
+ <# Note because "NestedHVEnabled" is apart of VirtualMachineConfigSpec we can just assing it a value
+ ## while VbsEnabled & VvtEnabled is apart of VirtualMachineFlagInfo so we have to create an object
+ ## first and then assign it a value, I need to get used to doing this more, it is very powerful
+ #>
+
+ $spec3 = New-Object VMware.Vim.VirtualMachineConfigSpec
+ $spec3.NestedHVEnabled = $true
+ $spec3.Flags = New-Object VMware.Vim.VirtualMachineFlagInfo
+ $spec3.Flags.VbsEnabled = $true
+ $spec3.Flags.VvtdEnabled = $true
+ $vm.ExtensionData.ReconfigVM($spec3)
+ 
+ 
  Start-Sleep -Seconds 2
  
  <##Now that's all done let's start up our VM#>
