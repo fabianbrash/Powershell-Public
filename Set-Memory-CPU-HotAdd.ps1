@@ -48,7 +48,13 @@ if($PwrdOn.PowerState -eq "PoweredOn") {
  ##Let's enable EFI
 
  $vm = Get-VM -Name $theVM
-
+ 
+ <## [VMware.Vim.GuestOsDescriptorFirmwareType]::efi 
+ ## Static Member operator ::
+ ## Calls the static properties operator and methods of a .NET Framework class. 
+ ## To find the static properties and methods of an object, use the Static parameter of the Get-Member cmdlet.
+ ## [datetime]::now
+ #>
 
  $spec1 = New-Object VMware.Vim.VirtualMachineConfigSpec
  $spec1.Firmware = [VMware.Vim.GuestOsDescriptorFirmwareType]::efi
