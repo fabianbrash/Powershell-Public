@@ -80,8 +80,8 @@ if($PwrdOn.PowerState -eq "PoweredOn") {
      
      Write-Host "WRONG HW VERSION MUST BE ON HW 14....SETTING NOW..." -ForegroundColor Cyan
      #Throw "WRONG VERSION MUST BE ON HW 14"
-     Set-VM -VM $vm -Version v14 -confirm:$false
-     #Set-VM -VM $vm -HardwareVersion v14 -confirm:$false
+     Set-VM -VM $vm -Version v14 -confirm:$false <#Deprecated method#>
+     <#Set-VM -VM $vm -HardwareVersion v14 -confirm:$false#> <#Preferred method#>
  }
 
  <# Note because "NestedHVEnabled" is apart of VirtualMachineConfigSpec we can just assing it a value
