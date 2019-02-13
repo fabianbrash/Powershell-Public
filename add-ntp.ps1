@@ -1,3 +1,5 @@
+Clear-Host
+
 try {
 
     Import-Module VMware.VimAutomation.Core -ErrorAction Stop
@@ -16,11 +18,12 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false
 
 <# VARS #>
 $vc = "vc"
+$NTPServers = @("ntp.enterprise.com", "ntp2.enterprise.com")
 
 
 Connect-VIServer -Server $vc
 
-Get-Cluster -Name "theCluster" | Get-VMHost | Add-VMHostNtpServer -NtpServer "ntp.enterprise.com"
+Get-Cluster -Name "theCluster" | Get-VMHost | Add-VMHostNtpServer -NtpServer $NTPServers
 
 #Get-VMHost -Name "h1" | Get-VMHostService
 
@@ -31,4 +34,4 @@ Get-Cluster -Name "thecluster" | Get-VMHost | Get-VMHostService | Where {$_.Key 
 Get-Cluster -Name "theCluster" | Get-VMHost | Get-VMHostService | Where {$_.Key -eq "ntpd"} | Set-VMHostService -Policy On
 
 
-Get-VMHost -Name "h1" | Get-VMHostService
+Get-VMHost -Name "h1" | Get-VMHostService | Where {$_.Key -eq "ntpd"}
