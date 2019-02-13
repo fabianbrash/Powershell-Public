@@ -23,11 +23,16 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false
 $vc = "vcsa"
 $Host = "host"
 $VMName = "pctw16automate"
-$Datastore = "datastore1"
 $folder = "Staging"
 $sPG = "VMTraffic50"
 
 Connect-VIServer -Server $vc
+
+<#IF ANY RESOURCE IS AVAILABLE ACROSS MULTIPLE DATACENTERS AND CLUSTERS UNDER THAT YOU MUST USE
+ -Location
+ #>
+<# -Location IS VERY VERY IMPORTANT AS THE DATASTORE IS VISIBLE TO MULTIPLE VCENTERS AND CLUSTERS#>
+$Datastore = Get-Datasore -Name "datastore1" -Location "DC1"
 
 $Content_Library_Item = "18-10-Srv16-4K-EFI-OVA-VBS"
 $GuestSpec = Get-OSCustomizationSpec -Name "CustomSpec-ContentLibrary-automation"
