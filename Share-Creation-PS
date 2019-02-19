@@ -1,0 +1,39 @@
+<# REF: https://ss64.com/ps/set-acl.html
+ # REF: https://stackoverflow.com/questions/3282656/setting-inheritance-and-propagation-flags-with-set-acl-and-powershell
+ # REF: https://blog.netwrix.com/2018/04/18/how-to-manage-file-system-acls-with-powershell-scripts/
+
+
+Clear-Host
+
+$theshare = "\\localhost\testshare"
+
+##Create the share and apply share permissions
+New-SmbShare -Name "testshare" -Path "D:\ShareA" -Description "Test Share" -FullAccess "Administrators", "ShareUsers", "Enterprise\Sales"
+Start-Sleep 4
+
+###Now Let's strip inherited permissions and blow them away
+$acl = Get-Acl $theshare
+
+$acl.SetAccessRuleProtection($true,$false)
+$acl | Set-Acl $theshare
+
+##Now Let's assign NTFS rights to the share
+
+$acl = Get-Acl $theshare
+#$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None
+$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("Administrators", "FullControl", 'ContainerInherit, ObjectInherit', 'None', "Allow")
+$AccessRule1 = New-Object System.Security.AccessControl.FileSystemAccessRule("ShareUsers", "FullControl", 'ContainerInherit, ObjectInherit', 'None', "Allow")
+$AccessRule2 = New-Object System.Security.AccessControl.FileSystemAccessRule("Enterprise\Sales", "Modify", 'ContainerInherit, ObjectInherit', 'None', "Allow")
+
+$acl.SetAccessRule($AccessRule)
+$acl | Set-Acl $theshare
+
+$acl.SetAccessRule($AccessRule1)
+$acl | Set-Acl $theshare
+
+$acl.SetAccessRule($AccessRule2)
+$acl | Set-Acl $theshare
+
+#Remove-SmbShare -Name $theshare -Force
+
+Get-Acl $theshare | fl
