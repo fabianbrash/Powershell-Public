@@ -67,13 +67,13 @@ Write-Host "Creating Cluster(s)"
 Write-Host "---------------------------------------------------------------------------------------------------"
 for($b=0; $b -lt $Clusters.Length; $b++) {
 
-    New-Cluster -Location $DC -Name $Clusters[$b] -DRSEnabled -DRSMode FullyAutomated -HAEnabled -HAAdmissionControlEnabled
+    New-Cluster -Location $DC -Name $Clusters[$b] -DRSEnabled -DrsAutomationLevel FullyAutomated -HAEnabled -HAAdmissionControlEnabled
 }
 
 <# Add host(s) to a cluster #>
-Write-Host "Adding Host(s)"
+Write-Host "Adding Host(s) to Cluster"
 Write-Host "---------------------------------------------------------------------------------------------------"
-for($d=0; $d -lt $esxhosts.Lenght; $d++) {
+for($d=0; $d -lt $esxhosts.Length; $d++) {
 
     Move-VMHost -VMHost $esxhosts[$d] -Destination "Mgmt"
  }
