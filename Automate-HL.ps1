@@ -43,7 +43,7 @@ $esxhosts = @("host1")
 [Int32]$uplinks = 2
 $vDSName = "Prod-vDS"
 $vDSPG = @("DvPG-VMTRAFFIC99", "DvPG-VMTRAFFIC50", "DvPG-NFS30","DvPG-NESTED-MGMT99","DvPG-NESTED-vSAN50", "DvPG-NESTED30")
-[int]$VLAN = @(99,50,30,99,50,30) 
+$VLAN = 99,50,30,99,50,30
 
 $Folder = Get-Folder -NoRecursion
 
