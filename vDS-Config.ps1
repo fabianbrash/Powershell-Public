@@ -46,7 +46,7 @@ New-VDSwitch -Name $vDSName -Location $DC -LinkDiscoveryProtocol "CDP" -LinkDisc
 
 <# Create our PG #>
 
-for($i = 0; $i -lt $vDSPG.Length' $i++) {
+for($i = 0; $i -lt $vDSPG.Length; $i++) {
     Get-VDSwitch -Name $vDSName | New-VDPortgroup -Name $vDSPG[$i] -VlanId $VLAN[$i]
 }
 
