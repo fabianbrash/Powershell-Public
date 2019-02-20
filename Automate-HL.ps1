@@ -63,14 +63,16 @@ Write-Host "Adding hosts(s) to the datacenter:"$DC -ForegroundColor Green
 
 
 <# Create cluster(s) #>
-
+Write-Host "Creating Cluster(s)"
+Write-Host "---------------------------------------------------------------------------------------------------"
 for($b=0; $b -lt $Clusters.Length; $b++) {
 
     New-Cluster -Location $DC -Name $Clusters[$b] -DRSEnabled -DRSMode FullyAutomated -HAEnabled -HAAdmissionControlEnabled
 }
 
 <# Add host(s) to a cluster #>
-
+Write-Host "Adding Host(s)"
+Write-Host "---------------------------------------------------------------------------------------------------"
 for($d=0; $d -lt $esxhosts.Lenght; $d++) {
 
     Move-VMHost -VMHost $esxhosts[$d] -Destination "Mgmt"
@@ -78,17 +80,21 @@ for($d=0; $d -lt $esxhosts.Lenght; $d++) {
  
  
 <# Create the vDS#>
+Write-Host "Creating vDS"
+Write-Host "---------------------------------------------------------------------------------------------------"
 New-VDSwitch -Name $vDSName -Location $DC -LinkDiscoveryProtocol "CDP" -LinkDiscoveryProtocolOperation Both -NumUplinkPorts $uplinks -ContactName "FRJB"
 
-<# Create our PG #>
-
+<# Create our PG(s) #>
+Write-Host "Creating PG(s)"
+Write-Host "---------------------------------------------------------------------------------------------------"
 for($c=0; $c -lt $vDSPG.Length; $c++) {
     Get-VDSwitch -Name $vDSName | New-VDPortgroup -Name $vDSPG[$c] -VlanId $VLAN[$c]
 }
 
 <#Add hosts to vDS and use vmnic 1#>
-
-for($a=0 $a -lt $esxhosts.Length; $a++) {
+Write-Host "Adding Host(s) to vDS"
+Write-Host "---------------------------------------------------------------------------------------------------"
+for($a=0; $a -lt $esxhosts.Length; $a++) {
     Get-VDSwitch -Name $vDSName | Add-VDSwitchVMHost -VMHost $esxhosts[$a]
     $hostAdapter = Get-VMHost $esxhost[$a] | Get-VMHostNetworkAdapter -Physical -Name vmnic1
     Get-VDSwitch $vDSName | Add-VDSwitchPhysicalNetworkAdapter -VMHostNetworkAdapter $hostAdapter -Confirm:$false
