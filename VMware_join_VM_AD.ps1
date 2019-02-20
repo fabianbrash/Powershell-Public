@@ -28,10 +28,16 @@ $MyLocalCred = New-Object -TypeName System.Management.Automation.PSCredential -A
 
 
 $VC = 'lab-vcsa-01.lab.net'
-$OU = 'OU=Production,OU=LabServers,DC=lab,DC=net'
+$OU = "OU=Production,OU=LabServers,DC=lab,DC=net"
 
 $TheDomain = 'lab.net'
 $DomainJoinScript = "Add-Computer -DomainName lab.net -Credential $MyDomainCred -Force -Restart"
+
+##Test this out
+$DomainJoinContainerScript = 
+@"
+Add-Computer -DomainName lab.net -OUPath ${OU} -Credential $MyDomainCred -Force -Restart
+"@
 
 Connect-VIServer -Server $VC -Credential $MyVCCred
 
