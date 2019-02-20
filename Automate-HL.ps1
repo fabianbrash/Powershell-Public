@@ -62,12 +62,27 @@ Write-Host "Adding hosts(s) to the datacenter:"$DC -ForegroundColor Green
         }
 
 
+<# Create cluster(s) #>
+
+for($b=0; $b -lt $Clusters.Length; $b++) {
+
+    New-Cluster -Location $DC -Name $Clusters[$b] -DRSEnabled -DRSMode FullyAutomated -HAEnabled -HAAdmissionControlEnabled
+}
+
+<# Add host(s) to a cluster #>
+
+for($d=0 $d -lt $esxhosts.Lenght; $d++) {
+
+    Move-VMHost -VMHost $esxhosts[$d] -Destination "Mgmt"
+ }
+ 
+ 
 <# Create the vDS#>
 New-VDSwitch -Name $vDSName -Location $DC -LinkDiscoveryProtocol "CDP" -LinkDiscoveryProtocolOperation Both -NumUplinkPorts $uplinks -ContactName "FRJB"
 
 <# Create our PG #>
 
-for($c = 0; $c -lt $vDSPG.Length; ci++) {
+for($c=0; $c -lt $vDSPG.Length; c++) {
     Get-VDSwitch -Name $vDSName | New-VDPortgroup -Name $vDSPG[$c] -VlanId $VLAN[$c]
 }
 
