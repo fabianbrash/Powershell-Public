@@ -71,7 +71,7 @@ for($b=0; $b -lt $Clusters.Length; $b++) {
 
 <# Add host(s) to a cluster #>
 
-for($d=0 $d -lt $esxhosts.Lenght; $d++) {
+for($d=0; $d -lt $esxhosts.Lenght; $d++) {
 
     Move-VMHost -VMHost $esxhosts[$d] -Destination "Mgmt"
  }
