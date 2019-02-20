@@ -96,7 +96,7 @@ Write-Host "Adding Host(s) to vDS"
 Write-Host "---------------------------------------------------------------------------------------------------"
 for($a=0; $a -lt $esxhosts.Length; $a++) {
     Get-VDSwitch -Name $vDSName | Add-VDSwitchVMHost -VMHost $esxhosts[$a]
-    $hostAdapter = Get-VMHost $esxhost[$a] | Get-VMHostNetworkAdapter -Physical -Name vmnic1
+    $hostAdapter = Get-VMHost $esxhosts[$a] | Get-VMHostNetworkAdapter -Physical -Name vmnic1
     Get-VDSwitch $vDSName | Add-VDSwitchPhysicalNetworkAdapter -VMHostNetworkAdapter $hostAdapter -Confirm:$false
 
 }
