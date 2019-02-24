@@ -38,8 +38,8 @@ Connect-VIServer -Server $vc
 
 $DC = Get-Datacenter -Name "DC"
 $vDSName = "vds"
-$vDSPG = @("dvPG-NESTED-vSAN99", "dvPG-VMTRAFFIC99", "dvPG-VMTRAFFIC50", "dvPG-NESTED-vSAN50")
-[int]$VLAN = @(99,99,50,50) 
+$vDSPG = @("dvPG-NESTED-vSAN99", "dvPG-VMTRAFFIC99", "dvPG-VMTRAFFIC50", "dvPG-NESTED-vSAN50","DvPG-VMO900","DvPG-NESTED-VMO900","DvPG-NESTED-vSAN901")
+[int]$VLAN = @(99,99,50,50,900,900,901) 
 
 <# Create the vDS#>
 New-VDSwitch -Name $vDSName -Location $DC -LinkDiscoveryProtocol "CDP" -LinkDiscoveryProtocolOperation Both -NumUplinkPorts 2 -ContactName "FRJB"
