@@ -2,8 +2,10 @@
 
 Clear-Host
 
+$DM = $env:USERDOMAIN
+$DoUser = $env:UserName
 
-$cred = Get-Credential #Read credentials
+$cred = Get-Credential -Credential $DM\$DoUser #Read credentials
  $username = $cred.username
  $password = $cred.GetNetworkCredential().password
 
