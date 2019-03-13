@@ -1,4 +1,4 @@
-
+##REF:https://serverfault.com/questions/276098/check-if-user-password-input-is-valid-in-powershell-script
 
 Clear-Host
 
