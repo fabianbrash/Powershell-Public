@@ -4,7 +4,7 @@ Clear-Host
 ################################################
 # Configure the variables below for the vCenter
 ################################################
-$VMName = "vm"
+$VMName = Read-Host "Enter VM Name"
 $vCenter = "vc"
 #$ScriptDirectory = "C:\MatchingDriveLettersToVMDKsv1"
 ################################################
