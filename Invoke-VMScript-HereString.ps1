@@ -35,11 +35,12 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false
 <# VARS #>
 $vc = "vc"
 
-#$code = "Get-Process"
-$code = @"
-Get-Process
-Get-NetAdapter | ft
-"@
+#$code = "Get-Process" & net-adapter notice the use of a here-string with single quotes
+#this is required as we are assigning a variable within the here-string "" will throw an error
+$code = @'
+$process = Get-Process
+$net = Get-NetAdapter | ft
+'@
 
 
 $code2 = @'
@@ -53,3 +54,4 @@ $vm = Get-VM -Name "test"
 Invoke-VMScript -VM $vm -ScriptText $code -GuestCredential(Get-Credential)
 Invoke-VMScript -VM $vm -ScriptText $code2 -GuestCredential(Get-Credential)
 $code2.ScriptOutput
+$code.ScriptOutput
