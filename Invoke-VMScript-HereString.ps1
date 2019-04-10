@@ -41,7 +41,15 @@ Get-Process
 Get-NetAdapter | ft
 "@
 
+
+$code2 = @'
+$value = Get-CIMinstance -Class CIM_LogicalDisk
+$value
+'@
+
 Connect-VIServer -Server $vc
 $vm = Get-VM -Name "test"
 
-Invoke-VMScript -VM $vm -ScriptText $code -GuestCredential(Get-Credential) 
+Invoke-VMScript -VM $vm -ScriptText $code -GuestCredential(Get-Credential)
+Invoke-VMScript -VM $vm -ScriptText $code2 -GuestCredential(Get-Credential)
+$code2.ScriptOutput
