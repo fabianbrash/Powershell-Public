@@ -44,12 +44,15 @@ $code = "dmesg | grep -i attached | grep disk"
 #Write-Host "VM: $VM disk info"
 
 $code2 = "dmesg | grep sg | grep -i attached | grep -i 'type 0'"
+<#it seems you can't use a newline in the below code for linux#>
 
 $code3 = @'
 dmesg | grep -i attached | grep disk
 echo '-------------------------------------------------------------------'
 dmesg | grep sg | grep -i attached | grep -i 'type 0'
-
+echo '-------------------------------------------------------------------'
+echo '-------------------------------------------------------------------'
+lsblk
 '@
 
 $sINvoke = @{
