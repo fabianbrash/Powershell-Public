@@ -9,6 +9,8 @@ catch{
     Write-Error -Message "Could not load VMware.VimAutomation.Core module..."
 	}
 
+$vc = "vc"
+
 Connect-VIServer -Server $vc  -Credential $vcCred
 
 
