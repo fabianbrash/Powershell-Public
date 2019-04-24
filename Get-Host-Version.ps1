@@ -1,5 +1,6 @@
 <# ##
 ## REF:https://www.virtuallyghetto.com/2016/08/quick-tip-how-to-retrieve-the-esxi-update-level-using-the-vsphere-api.html
+#>
 
 Clear-Host
 
