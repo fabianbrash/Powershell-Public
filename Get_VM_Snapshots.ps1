@@ -47,6 +47,14 @@ Connect-ViServer -Server $VC -User $Automation_user -Password $creds
 Get-VM | Get-Snapshot | Select vm,name,SizeMB,SizeGB | Export-Csv C:\VMSnaps65$Today.csv
 <#Get-VM | Get-Snapshot | Format-List vm,name,SizeMB,SizeGB#>
 
+
+Write-Host "-----------------------------------------------------------------------------------------------------------------------------------"
+##Get all VM's with snapshots greater than 7 days old
+Get-VM | Get-Snapshot | Where {$_.Created -lt (Get-Date).AddDays(-7)} | Select-Object VM, Name, Created
+
+###Now let's delete them###
+#Get-VM | Get-Snapshot | Where{$_.Created -lt (Get-Date).AddDays(-7)} | Remove-Snapshot -RemoveChildren -Confirm:$false
+
 Start-Sleep -Seconds 2
 
 Send-MailMessage -To "serveradmin <serveradmin@blah.com>" -From "powershell <powershell@blah.com>" -Subject "VM's Running on Snapshots" -Body "Here is a list of all VM's running on a snapshot" -SmtpServer $SMTPServer -Attachments C:\VMSnaps65$Today.csv
