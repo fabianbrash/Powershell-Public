@@ -1,3 +1,9 @@
+<#
+Please note the read-only user must have Global.settings in oder to read VIBS so just copy the Read-Only role
+And add that permission to it under Global > Settings and you should be good
+REF: https://blogs.vmware.com/vsphere/2013/04/minimum-privileges-to-query-vibs-on-an-esxi-host.html
+#>
+
 Clear-Host
 
 try {
@@ -24,6 +30,8 @@ $theDate = Get-Date -DisplayHint Date
 $results=@()
 $HostName=@()
 $HostResults=@()
+$HostApps=@()
+
 
 if($isDEV -eq 1) {
 $vcCred = Import-Clixml -Path "C:\t.Cred"
@@ -104,9 +112,23 @@ $HostResults+= [Environment]::NewLine
 
 }
 
+$DCHosts | % {
+    
+
+    $esxcli2 = Get-Esxcli -VMHost $_ -V2
+
+    $HostApps+= $_.Name
+    $HostApps+= $esxcli2.software.vib.list.Invoke() | Select-Object -Property Name,Vendor,Version | ft
+    $HostApps+= [Environment]::NewLine
+
+}
+
 
 #$HostName | Export-Csv -Path C:\PORTS.csv -NoTypeInformation
 $HostResults | Out-File -FilePath C:\PORTS.log
+
+#$HostApps | Export-Csv -Path C:\Apps.csv -NoTypeInformation
+$HostApps | Out-File -FilePath C:\Apps.log
 
 $vcsaBuild = $Global:DefaultVIServer | Select Name, Version, Build
 
