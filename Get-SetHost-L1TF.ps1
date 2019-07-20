@@ -33,6 +33,13 @@ Set-PowerCLIConfiguration -WebOperationTimeoutSeconds 45000 -Confirm:$false | Ou
 
 Connect-VIServer -Server $vc  -Credential $vcCred
 
+Get-HTAwareMitigationAnalysis -Server vCenter_Server_Name
+
+Write-Host "---------------------------------------------------------------------------------------------------------------"
+
+Get-HTAwareMitigationAnalysis -ClusterName vSphere_Cluster_Name
+
+Write-Host "---------------------------------------------------------------------------------------------------------------"
 
 Get-HTAwareMitigationConfig -ClusterName "C2"
 
