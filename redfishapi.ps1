@@ -98,5 +98,43 @@ function Get-NetworkAdapter1
 }
 
 
+function Get-NetworkAdapter2
+{
+   
+
+
+    Write-Host 'Example 12: Retrieving network adapter(s)...'
+
+    # connect session
+
+    $session = Connect-HPERedfish -Address $Address -Credential $cred
+
+    
+    # retrieve list of computer systems
+    $adapters = Get-HPERedfishDataRaw -odataid '/redfish/v1/Systems/1/NetworkAdapters/' -Session $session
+
+    #$adapters
+
+    #Write-Host "----------------------------------------------------------------------------------------------------------------------------------------------------------"
+
+    <#$adapters | Select-Object -Property @{n='ServerName';e={($Address)}}, Name, StructuredName, @{n='IPv4Addresses';e={($_.PhysicalPorts.IPv4Addresses | Select-Object -ExpandProperty Address)}}, `
+    @{n='MACs';e={($_.PhysicalPorts | Select-Object -ExpandProperty MacAddress)}} | ft#>
+
+    
+    # print details of all computer systems
+    foreach($sys in $adapters.Members.'@odata.id')
+    {
+        $sysData = Get-HPERedfishDataRaw -odataid $sys -Session $session
+        $sysData | Select-Object -Property @{n='ServerName';e={($Address)}}, Name, StructuredName, @{n='IPv4Addresses';e={($_.PhysicalPorts.IPv4Addresses | Select-Object -ExpandProperty Address)}}, `
+    @{n='MACs';e={($_.PhysicalPorts | Select-Object -ExpandProperty MacAddress)}} | ft
+    }
+
+    
+    # Disconnect session after use
+    Disconnect-HPERedfish -Session $session
+
+    
+  }   
+
 #Get-ComputerSystemExample11
-Get-NetworkAdapter1
+Get-NetworkAdapter2
