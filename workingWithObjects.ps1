@@ -12,6 +12,7 @@ Alias           r -> Invoke-History
 
 #>
 
+##The above is gotten by using Get-Alias ?
 
 
 Clear-Host
