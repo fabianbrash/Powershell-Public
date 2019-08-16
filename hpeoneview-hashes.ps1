@@ -56,6 +56,28 @@ $OutArray = foreach($server in $servers) {
 }
 
 
+function Enclosure {
+
+$ValuesArray = @()
+
+$ListofEncs = Get-HPOVEnclosure | Sort-Object Name
+
+  $ValuesArray = foreach($enc in $ListofEncs) {
+
+      foreach($bay in $enc.managerBays) {
+
+          [PSCustomObject]@{
+
+              Name                       =-join ($enc.Name,",", ""+$bay.managerType,$bay.bayNumber)
+              Component                  = "Onboard Administrator"
+              Installed                  =$bay.fwVersion
+     }
+  }
+
+ }
+
+ $ValuesArray| Out-File -FilePath C:\enc.log
+
 GTServer
 
 
