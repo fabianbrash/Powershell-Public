@@ -1,4 +1,4 @@
-﻿Clear-Host
+Clear-Host
 
 
 try {
@@ -35,13 +35,14 @@ $OutArray = foreach($server in $servers) {
 
     foreach($hostinfo in $server.mpHostInfo.mpIpAddresses) {
 
-        if($hostinfo.type -eq "Static") {Write-Host "Found IPv4..."}
-        $hostinfo.type
+        if($hostinfo.type -eq "Static") {$v4 = $hostinfo.address}
+        else{$v6=$hostinfo.address; $v4=""}
+        #$hostinfo.type
 
         [PSCustomObject]@{
             Name        = $server.Name
-            $ip4          = $hostinfo.address
-            #$ip6          = $hostinfo.address
+            $ip4          = $v4
+            $ip6          = $v6
 
     }
 
