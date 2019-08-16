@@ -75,8 +75,11 @@ $ListofEncs = Get-HPOVEnclosure | Sort-Object Name
   }
 
  }
+ $ValuesArray | Out-File -FilePath C:\enc.log
+ 
+}
 
- $ValuesArray| Out-File -FilePath C:\enc.log
+ 
 
 GTServer
 
