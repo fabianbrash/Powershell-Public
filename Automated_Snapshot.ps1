@@ -1,6 +1,6 @@
 ﻿<###FileName:    Automated_Snapshot.ps1
 <###Author:      Fabian Brash
-<###Usage:       Automate snapshot deletions in vCenter
+<###Usage:       Automate snapshot creations in vCenter
 ###>
 
 
