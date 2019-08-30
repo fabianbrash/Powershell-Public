@@ -58,7 +58,10 @@ $ListofConnections                                        =Get-HPOVServerProfile
    $ProfileConn = ForEach($con in $ListofConnections) {
                
                    [PSCustomObject]@{
-
+                       
+                       Name                             =$con.name
+                       macType                          =$con.macType
+                       wwpnType                         =$con.wwpnType
                        ServerProfile                    =$con.serverProfile
                        PortID                           =$con.portID
                        NetworkProtocol                  =$con.functionType
@@ -66,6 +69,11 @@ $ListofConnections                                        =Get-HPOVServerProfile
                        MACAddress                       =$con.mac
                        WWPN                             =$con.wwpn
                        WWNN                             =$con.wwnn
+                       State                            =$con.state
+                       Status                           =$con.status
+                       Managed                          =$con.managed
+                       RequestedMb                      =$con.requestedMb
+                       AllocatedMb                      =$con.allocatedMb
                     }
 
     }
