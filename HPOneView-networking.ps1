@@ -1,20 +1,21 @@
 Clear-Host
 
 
-#$HPModule                             ="HPOneView.420"
-$HPModule5                             ="HPOneView.500" 
+$HPModule                             ="HPOneView.420"
+#$HPModule5                             ="HPOneView.500" this seems buggy or they've moved things around
 
 try {
-Import-Module -Name $HPModule5
+Import-Module -Name $HPModule
 }
 
 catch{
-Write-Error -Message "Could not load module $HPModule5"
+Write-Error -Message "Could not load module $HPModule"
 }
 
 $MACS=@()
+$ProfileConn=@()
 
-#Connect-HPOVMgmt -Hostname "ONE_VIEW_SERVER"
+#$MySession = Connect-HPOVMgmt -Hostname "ONE_VIEW_SERVER"
 
 #| Where-Object {$_.serverName -notlike "PVC*"
 
@@ -48,5 +49,35 @@ function OneViewMACInfo() {
  $MACS | ft -AutoSize
 }
 
+
+
+function GTNetInfo {
+
+$ListofConnections                                        =Get-HPOVServerProfileConnectionList
+
+   $ProfileConn = ForEach($con in $ListofConnections) {
+               
+                   [PSCustomObject]@{
+
+                       ServerProfile                    =$con.serverProfile
+                       PortID                           =$con.portID
+                       NetworkProtocol                  =$con.functionType
+                       #Network                         =$con.Network
+                       MACAddress                       =$con.mac
+                       WWPN                             =$con.wwpn
+                       WWNN                             =$con.wwnn
+                    }
+
+    }
+
+#$Networks
+$ProfileConn | ft -AutoSize
+
+
+
+}
     
-OneViewMACInfo
+#OneViewMACInfo
+
+GTNetInfo
+Disconnect-HPOVMgmt -Hostname $MySession
