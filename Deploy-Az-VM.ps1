@@ -19,6 +19,7 @@ New-AzVm `
     -SecurityGroupName "jumphostsRDP" `
     -PublicIpAddressName "jumphost" `
     -ImageName "MicrosoftWindowsServer:WindowsServer:2019-Datacenter:latest" `
+    -Size "Standard_D3" `
     -Credential $cred
     #-AsJob
 
