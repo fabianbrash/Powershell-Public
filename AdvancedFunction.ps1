@@ -1,3 +1,7 @@
+#REF:https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-6
+#REF:https://powershell.org/forums/topic/understanding-switch-parameters/
+#REF:https://blogs.msdn.microsoft.com/mediaandmicrocode/2009/04/10/microcode-powershell-scripting-trick-fun-with-parameter-binding-the-fake-parameter-set-trick/
+
 Clear-Host
 
 
