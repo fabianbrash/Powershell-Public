@@ -1,3 +1,4 @@
+##REF: https://virtuallysober.com/2018/01/04/introduction-to-powershell-rest-api-authentication/
 Clear-Host
 
 
