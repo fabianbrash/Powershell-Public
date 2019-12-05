@@ -1,13 +1,21 @@
 Clear-Host
 
 
-$RESTEndpoint = "VC_IP_OR_DNS"
+<#
+ Variable declarations
+#>
+
+#$RESTEndpoint = "vc_IP_OR_DNS"
+$RESTEndpoints = @("vc_IP_OR_DNS", "vc_IP_OR_DNS", "vc_IP_OR_DNS")
+
 
 $cred = Get-Credential $null
+#$cred = Import-Clixml -Path C:\Creds\la.Cred
 
 $RESTUser = $cred.UserName
-$cred.Password | ConvertFrom-SecureString
+$cred.Password | ConvertFrom-SecureString #Required when using Get-Credential
 $RESTPass = $cred.GetNetworkCredential().Password
+$Output=@()
 
 
 ###Prevent our script from breaking because of a self-signed certificate and also apparently Powershell 5.x and below don't by default use TLS1.2
@@ -36,9 +44,10 @@ add-Type -TypeDefinition @"
 
 
 ##Build our URL's and headers
+for($c=0; $c -lt $RESTEndpoints.Length; $c++) {
 
-$BaseAuthURL = "https://" + $RESTEndpoint + "/rest/com/vmware/cis/"
-$BaseURL = "https://" + $RESTEndpoint + "/rest/"
+$BaseAuthURL = "https://" + $RESTEndpoints[$c] + "/rest/com/vmware/cis/"
+$BaseURL = "https://" + $RESTEndpoints[$c] + "/rest/"
 $vCenterSessionURL = $BaseAuthURL + "session"
 
 $Header = @{"Authorization" = "Basic "+[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($RESTUser+":"+$RESTPass))}
@@ -61,6 +70,7 @@ $vCenterSessionHeader = @{'vmware-api-session-id' = $vCenterSessionResponse.valu
 $ApplianceURL = $BaseURL+"appliance"
 $ApplianceDBHealthURL = "/health/database-storage"
 $ApplianceStorageHealth = "/health/storage"
+$ApplianceServicesHealth = "/health/applmgmt"
 
 ##Note the + sign only concatenates here, do not use with a commandlet
 #$ApplianceURL+$ApplianceDBHealthURL
@@ -76,6 +86,9 @@ try {
 
     $ApplianceStoragehealthJSON = Invoke-RestMethod -Method Get -Uri $ApplianceURL$ApplianceStorageHealth -TimeoutSec 100 -Headers $vCenterSessionHeader -ContentType $Type
     $ApplianceStoragehealth = $ApplianceStoragehealthJSON.value
+
+    $ApplianceServiceHealthJSON = Invoke-RestMethod -Method Get -Uri $ApplianceURL$ApplianceServicesHealth -TimeoutSec 100 -Headers $vCenterSessionHeader -ContentType $Type
+    $ApplianceServicehealth = $ApplianceServiceHealthJSON.value
 }
 
 catch{
@@ -84,13 +97,16 @@ catch{
 }
 
 
-$OutPut = [PSCustomObject]@{
+$OutPut += [PSCustomObject]@{
 
-    "vCenter"                           = $RESTEndpoint
-    "Appliance DB storage Health"       = $DBStoragehealth
-    "Appliance Storage Health"          = $ApplianceStoragehealth
+    "vCenter"                           = $RESTEndpoints[$c].ToUpper()
+    "Appliance DB storage Health"       = $DBStoragehealth.ToUpper()
+    "Appliance Storage Health"          = $ApplianceStoragehealth.ToUpper()
+    "Appliance Services Health"         = $ApplianceServiceHealth.ToUpper()
     
-}
+ }
+
+} #End out for loop
 
 
 
@@ -100,17 +116,26 @@ $OutPut = [PSCustomObject]@{
 
 $Style = @"
 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel=stylesheet> 
+
+<style>
+  body {font-family: 'Roboto Condensed', sans-serif; font-size:16px}
+
+</style>
 "@
 
 $Pre = @"
 
 <div class="container-fluid">
-  <h2 align="center">vCenter storage health status</h2>
+  <h2 align="center">vCenter Health Status</h2>
 </div>
 
 "@
 
-$OutPut | ConvertTo-Html -Head $Style -CssUri "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" -PreContent $Pre | ForEach-Object {$_ -replace '<table>', '<table class="table table-striped">'} | Out-File -FilePath C:\Users\FABIAN4-DSA\Desktop\output.html
+$OutPut | ConvertTo-Html -Head $Style -PreContent $Pre -Title "vCenter Health" | `
+ForEach-Object {$_ -replace '<table>', '<table class="table table-striped">'} | ForEach-Object {$_ -replace '<tr>', '<tr align="center">'} | `
+Out-File -FilePath C:\Users\FABIAN4-DSA\Desktop\output.html
 
 
 #$DBStoragehealth | Format-Table -AutoSize
