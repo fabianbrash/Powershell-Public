@@ -36,4 +36,4 @@ function GenAES {
 }
 
 
-GenAES -File "C:\Creds\passkey.txt"
+GenAES -File "C:\Creds\passkey.key"
