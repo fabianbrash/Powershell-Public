@@ -15,10 +15,10 @@ Write-Error -Message "Cannot Load Module HPEiLOCmdlets"
 
 $cred = Get-Credential
 
-$iLOs = @("IP_0", "IP_1")
+$iLOs = @("1.1.1.1", "2.2.2.2")
 
 #$SAsession = Connect-HPESA -IP 1.1.1.1 -Credential $cred -DisableCertificateAuthentication
-#$SAsession = Connect-HPESA -IP 1.1.1.1 -Credential $cred -DisableCertificateAuthentication
+#$SAsession = Connect-HPESA -IP 2.2.2.2 -Credential $cred -DisableCertificateAuthentication
 
 <#$diskInfo = Get-HPESAPhysicalDrive -Connection $SAsession
 
