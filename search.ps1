@@ -25,8 +25,8 @@ foreach($computer in $computersGC){
     
 }
 
-$computersObj | Out-File -FilePath /home/fabian/Documents/found.txt -Append
-$found | Out-File -FilePath /home/fabian/Documents/found.txt -Append
+$computersObj | Out-File -FilePath /home/userDocuments/found.txt -Append
+$found | Out-File -FilePath /home/user/Documents/found.txt -Append
 #$found.Matches
 
 #$NumOccurences = $found.Matches.Length
