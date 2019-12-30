@@ -2,6 +2,8 @@
   Note this will also work if you run it from an elevated prompt on the local machine
 
   Start-Process $exepath -ArgumentList $args -Wait
+  
+  REF:https://community.idera.com/database-tools/powershell/ask_the_experts/f/powershell_remoting-24/21789/invoke-command-with-run-as-administrator-on-remote-machines
 #>
 
 
