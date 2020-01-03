@@ -9,7 +9,9 @@ if(-not(Test-Path 'C:\InstallFiles')) {
     New-Item -Path C:\InstallFiles -ItemType Directory
 }
 
+#$ProgressPreference = 'Continue'
 
+#The below speeds things up greatly
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -UseBasicParsing -Uri https://containerblobs.blob.core.windows.net/installers/umds-Msft.zip -OutFile C:\InstallFiles\umds-Msft.zip
 
