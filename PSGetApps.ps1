@@ -10,6 +10,7 @@ $Header2 = "Publisher"
 $Header3 = "DisplayVersion"
 $Header4 = "InstallDate"
 $Output=@()
+$hostSystem = $env:COMPUTERNAME
 
 
 function Get-Apps {
@@ -77,4 +78,4 @@ function Get-Apps {
 }
 
 
-Get-Apps -FileLocation C:\Output\InstalledApps.csv -OSArch 64
+Get-Apps -FileLocation "C:\Output\$hostSystem-InstalledApps.csv" -OSArch 64
