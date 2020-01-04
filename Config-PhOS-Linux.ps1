@@ -44,7 +44,7 @@ $VM = Get-VM -Name (Read-Host "Enter VM Name") #Replace this string with your VM
 <# It seems you can't use empty newlines in linux#>
 
 $code3 = @"
-cp /etc/systemd/network/99-dhcp-en.network /etc/systemd/network/99-dhcp-en.network.BAK
+cp -p /etc/systemd/network/99-dhcp-en.network /etc/systemd/network/99-dhcp-en.network.BAK
 sed -i 's/DHCP=yes/DHCP=no/g' /etc/systemd/network/99-dhcp-en.network
 cp -p /etc/systemd/network/99-dhcp-en.network /etc/systemd/network/10-static-en.network
 echo Address=$IP >> /etc/systemd/network/10-static-en.network
