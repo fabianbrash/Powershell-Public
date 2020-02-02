@@ -6,7 +6,7 @@ Clear-Host
 #>
 
 #$RESTEndpoint = "vc_IP_OR_DNS"
-$RESTEndpoints = @("vc_IP_OR_DNS", "vc_IP_OR_DNS", "vc_IP_OR_DNS")
+$RESTEndpoints = @("tdctlvcsa01.alexander.io")
 
 
 $cred = Get-Credential $null
@@ -71,6 +71,7 @@ $ApplianceURL = $BaseURL+"appliance"
 $ApplianceDBHealthURL = "/health/database-storage"
 $ApplianceStorageHealth = "/health/storage"
 $ApplianceServicesHealth = "/health/applmgmt"
+$ApplianceBKURL = "/recovery/backup/job/details"
 
 ##Note the + sign only concatenates here, do not use with a commandlet
 #$ApplianceURL+$ApplianceDBHealthURL
@@ -89,6 +90,9 @@ try {
 
     $ApplianceServiceHealthJSON = Invoke-RestMethod -Method Get -Uri $ApplianceURL$ApplianceServicesHealth -TimeoutSec 100 -Headers $vCenterSessionHeader -ContentType $Type
     $ApplianceServicehealth = $ApplianceServiceHealthJSON.value
+
+    $ApplianceBKJSON = Invoke-RestMethod -Method Get -Uri $ApplianceURL$ApplianceBKURL -TimeoutSec 100 -Headers $vCenterSessionHeader -ContentType $Type
+    $ApplianceBKHealth = $ApplianceBKJSON.value
 }
 
 catch{
@@ -97,12 +101,21 @@ catch{
 }
 
 
+#$ApplianceBKHealth.value | Format-List
+
+$Manual = $ApplianceBKHealth | Where-Object {$_.value.type -eq "SCHEDULED"}
+
+#($Manual).count
+
+#$Manual.value.status | Select-Object -Last 1
+
 $OutPut += [PSCustomObject]@{
 
     "vCenter"                           = $RESTEndpoints[$c].ToUpper()
     "Appliance DB storage Health"       = $DBStoragehealth.ToUpper()
     "Appliance Storage Health"          = $ApplianceStoragehealth.ToUpper()
     "Appliance Services Health"         = $ApplianceServiceHealth.ToUpper()
+    "Last Backup Status"                = $Manual.value.status | Select-Object -Last 1
     
  }
 
@@ -135,7 +148,7 @@ $Pre = @"
 
 $OutPut | ConvertTo-Html -Head $Style -PreContent $Pre -Title "vCenter Health" | `
 ForEach-Object {$_ -replace '<table>', '<table class="table table-striped">'} | ForEach-Object {$_ -replace '<tr>', '<tr align="center">'} | `
-Out-File -FilePath C:\Users\FABIAN4-DSA\Desktop\output.html
+Out-File -FilePath C:\Users\Fabian\Desktop\output.html
 
 
 #$DBStoragehealth | Format-Table -AutoSize
