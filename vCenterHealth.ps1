@@ -103,9 +103,11 @@ catch{
 
 #$ApplianceBKHealth.value | Format-List
 
-$Manual = $ApplianceBKHealth | Where-Object {$_.value.type -eq "SCHEDULED"}
+#$Manual = $ApplianceBKHealth | Where-Object {$_.value.type -eq "MANUAL"}
+$scheduled = $ApplianceBKHealth | Where-Object {$_.value.type -eq "SCHEDULED"}
 
 #($Manual).count
+#($scheduled).count
 
 #$Manual.value.status | Select-Object -Last 1
 
@@ -115,7 +117,8 @@ $OutPut += [PSCustomObject]@{
     "Appliance DB storage Health"       = $DBStoragehealth.ToUpper()
     "Appliance Storage Health"          = $ApplianceStoragehealth.ToUpper()
     "Appliance Services Health"         = $ApplianceServiceHealth.ToUpper()
-    "Last Backup Status"                = $Manual.value.status | Select-Object -Last 1
+    #"Last Manual Backup Status"                = $Manual.value.status | Select-Object -Last 1
+    "Last Scheduled backup status"      = $scheduled.value.status | Select-Object -Last 1
     
  }
 
