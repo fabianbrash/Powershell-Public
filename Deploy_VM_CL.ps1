@@ -37,8 +37,15 @@ $Datastore = Get-Datasore -Name "datastore1" -Location "DC1"
 $Content_Library_Item = "18-10-Srv16-4K-EFI-OVA-VBS"
 $GuestSpec = Get-OSCustomizationSpec -Name "CustomSpec-ContentLibrary-automation"
 
+
+$sVMData = @{
+
+    location = $folder
+    Datastore = $Datastore
+    VMHost = $Host
+
 try{
-     Get-ContentLibraryItem -Name $Content_Library_Item | New-VM -Name $VMName -location $folder -Datastore $Datastore -VMHost $Host -ErrorAction SilentlyContinue
+     Get-ContentLibraryItem -Name $Content_Library_Item | New-VM -Name $VMName @sVMData -ErrorAction SilentlyContinue
      Set-VM -VM $VMName -OSCustomizationSpec $GuestSpec -confirm:$false
      Get-NetworkAdapter -VM $VMName | Set-NetworkAdapter -NetworkName $sPG -StartConnected $true -confirm:$false
      Start-VM $VMName -confirm:$false
