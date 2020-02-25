@@ -43,6 +43,7 @@ $sVMData = @{
     location = $folder
     Datastore = $Datastore
     VMHost = $Host
+ }
 
 try{
      Get-ContentLibraryItem -Name $Content_Library_Item | New-VM -Name $VMName @sVMData -ErrorAction SilentlyContinue
