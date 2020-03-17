@@ -3,12 +3,6 @@ Clear-Host
 <#Clear the error logs as we are going to output the current errors to a file #>
 $Error.Clear()
 
-<#First we need to copy our file to the target machine or it can be on a share if the target systems
- Can hit it
- #>
-
-
-
 Function New-Log {
 
 
@@ -28,6 +22,9 @@ $endpoints = Get-Content -Path C:\Output\endpoints.txt
 
 ForEach($endpoint in $endpoints){
     
+    <#First we need to copy our file to the target machine or it can be on a share if the target systems
+     Can hit it
+     #>
     New-Log -msg "Copying file to $endpoint"
     $xResult = xcopy /s /i /e /q /y D:\pwsh7 \\$endpoint\d$
     New-Log -msg $xResult
