@@ -23,8 +23,9 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false
 $vc = "tdctlvcsa01.alexander.io"
 $theHost = "lbhpesxi01.alexander.io"
 $VMName = @("ubuntu-0", "ubuntu-1", "ubuntu-2", "ubuntu-3")
+
+## I probably need to move this also and get an object of the folder
 $folder = "Staging"
-$sPG = "VMTraffic50"
 
 Connect-VIServer -Server $vc
 
@@ -33,6 +34,7 @@ Connect-VIServer -Server $vc
  #>
 <# -Location IS VERY VERY IMPORTANT AS THE DATASTORE IS VISIBLE TO MULTIPLE VCENTERS AND CLUSTERS#>
 $Datastore = Get-Datastore -Name "HP-NVME" -Location "LDC"
+$sPG = Get-VirtualPortgroup -Name "VMTraffic50"
 
 $Content_Library_Item = "ubuntu1804template-1"
 #$GuestSpec = Get-OSCustomizationSpec -Name "CustomSpec-ContentLibrary-automation"
