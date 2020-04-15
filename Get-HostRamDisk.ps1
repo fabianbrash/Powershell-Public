@@ -32,7 +32,7 @@ foreach($vmHost in $vmHosts) {
     $results = $esxcli.system.visorfs.ramdisk.list.Invoke()
 
     $vmHost.Name
-    $results | Select-Object -Property MountPoint, Free, RamdiskName | Format-Table -AutoSize
+    $results | Select-Object -Property MountPoint, Free, RamdiskName | Where-Object{[int]$_.Free -lt 20} | Format-Table -AutoSize
 
     Write-Output "======================================================================================================"
 }
