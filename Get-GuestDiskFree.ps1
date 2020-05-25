@@ -41,6 +41,6 @@ foreach($VM in $VMs) {
 
 }
 
-$outPut | Export-Csv -Path /home/fabian/Desktop/inGuestSpace.csv -NoTypeInformation
+$outPut | Export-Csv -Path ~/Desktop/inGuestSpace.csv -NoTypeInformation
 
 Disconnect-VIServer * -Force -Confirm:$false
