@@ -1,5 +1,5 @@
 <#
-## Deploy VM from content library
+## Get in guest disk space
 #>
 
 Clear-Host
