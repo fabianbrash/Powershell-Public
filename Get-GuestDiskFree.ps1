@@ -45,6 +45,8 @@ foreach($VM in $VMs) {
 
 }
 
+#$outPut | Format-Table -AutoSize
+
 $outPut | Export-Csv -Path ~/Desktop/inGuestSpace.csv -NoTypeInformation
 
 Disconnect-VIServer * -Force -Confirm:$false
