@@ -29,6 +29,10 @@ $vc = "tdctlvcsa01.alexander.io"
 
 Connect-VIServer -Server $vc
 
+<#Get All VM's#>
+#$VMs = Get-VM
+
+<#Just Windows VM's#>
 $VMs = Get-VM | Where-Object {$_.GuestId -like "windows*"}
 
 #$VM
@@ -37,7 +41,7 @@ foreach($VM in $VMs) {
     
     $outPut+= $VM.ExtensionData.Guest.Disk | Select-Object @{N='Name';e={$VM.Name}},DiskPath,@{N='Capacity(GB)';e={[math]::Round($_.Capacity/1GB)}}, `
 @{N='Free Space(GB)';e={[math]::Round($_.FreeSpace/1GB)}}, `
-@{N='Free Space %';e={[math]::Round(((100*($_.FreeSpace))/($_.Capacity)),0)}}
+@{N='Free Space %';e={[math]::Round(((100*($_.FreeSpace))/($_.Capacity)),0)}}| Where-Object {$_.DiskPath -eq 'C:\'}
 
 }
 
