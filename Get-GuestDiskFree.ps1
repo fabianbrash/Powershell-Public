@@ -24,7 +24,7 @@ Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false
 <# VARS #>
 $outPut=@()
 
-$vc = "tdctlvcsa01.alexander.io"
+$vc = "vc"
 
 
 Connect-VIServer -Server $vc
