@@ -53,7 +53,8 @@ foreach($VM in $VMs) {
 
 }
 
-$outPut | ConvertTo-Json -AsArray | Out-File -FilePath "~/go/static/win_low_root.json"
+#$outPut | Sort-Object -Property freespace
+$outPut | Sort-Object -Property freespace | ConvertTo-Json -AsArray | Out-File -FilePath "~/go/static/win_low_root.json"
 #$outPutA | Format-Table -AutoSize
 #$outPutA | ConvertTo-Json -AsArray | Out-File -FilePath ~/diskData.json -Width 10000
 #$outPut | Export-Csv -Path ~/Desktop/inGuestSpace.csv -NoTypeInformation
