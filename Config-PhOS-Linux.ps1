@@ -21,6 +21,7 @@ $IP = "192.168.1.2/24"
 $DNS = "8.8.8.8"
 $GW = "192.168.1.1"
 $Domain = "photon.local"
+$Hostname = "hostname"
 
 $vcCred = Import-Clixml -Path "C:\la.Cred"
 if($vcCred -eq '') {
@@ -51,6 +52,7 @@ echo Address=$IP >> /etc/systemd/network/10-static-en.network
 echo Gateway=$GW >> /etc/systemd/network/10-static-en.network
 echo DNS=$DNS >> /etc/systemd/network/10-static-en.network
 echo Domains=$Domain >> /etc/systemd/network/10-static-en.network
+echo $Hostname >> /etc/hostname
 systemctl restart systemd-networkd
 systemctl enable docker
 systemctl start docker
