@@ -52,7 +52,7 @@ echo Address=$IP >> /etc/systemd/network/10-static-en.network
 echo Gateway=$GW >> /etc/systemd/network/10-static-en.network
 echo DNS=$DNS >> /etc/systemd/network/10-static-en.network
 echo Domains=$Domain >> /etc/systemd/network/10-static-en.network
-echo $Hostname >> /etc/hostname
+echo $Hostname > /etc/hostname
 systemctl restart systemd-networkd
 systemctl enable docker
 systemctl start docker
