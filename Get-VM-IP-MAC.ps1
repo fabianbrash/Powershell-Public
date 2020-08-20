@@ -48,6 +48,7 @@ $Data = foreach($VM in $VMs) {
          Name =                               $VM.Name
          MemoryGB =                           $VM.MemoryGB
          CPU =                                $VM.NumCpu
+	 #IP  =                                $VM.guest.IPAddress -join ","
          IP =                                 $VM.guest.IPAddress[0]
          MAC =                                (Get-NetworkAdapter -VM $VM | Select-Object -ExpandProperty MacAddress | Select-Object -First 1)
          Network =                            (Get-NetworkAdapter -VM $VM | Select-Object -ExpandProperty NetworkName | Select-Object -First 1)
