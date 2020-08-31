@@ -107,6 +107,34 @@ for($i = 0; $i -lt $RPSVMNameArraySrv16.length; $i++) {
         $SourceTemplate = Get-Template -Name $Srv2k16Template
         New-VM -Name $RPSVMNameArraySrv16[$i] -ResourcePool $EsxiHost -Location $RPS_Folder -Datastore $RPS_DataStore -Template $SourceTemplate -OSCustomizationSpec $SourceCustomization -Description $RPSDescriptionArraySrv16[$i] -ErrorAction Stop
         Get-NetworkAdapter -VM $RPSVMNameArraySrv16[$i] | Set-NetworkAdapter -Portgroup $LabvDSPG -Confirm:$false
+        
+         ###SET VBS note the VM must be on hardware version 14
+
+ $VMHWVersion = Get-VM -Name $RPSVMNameArraySrv16[$i] | Select -ExpandProperty Version
+
+ if(-not($VMHWVersion -eq "v14") ) {
+     
+     Write-Host "WRONG HW VERSION MUST BE ON HW 14....SETTING NOW..." -ForegroundColor Cyan
+     #Throw "WRONG VERSION MUST BE ON HW 14"
+	 Set-VM -VM $RPSVMNameArraySrv16[$i] -Version v14 -confirm:$false <#Deprecated method#>
+     <#Set-VM -VM $vm -HardwareVersion v14 -confirm:$false#> <#Preferred method#>
+ }
+
+ <# Note because "NestedHVEnabled" is apart of VirtualMachineConfigSpec we can just assign it a value
+ ## while VbsEnabled & VvtEnabled is apart of VirtualMachineFlagInfo so we have to create an object
+ ## first and then assign it a value, I need to get used to doing this more, it is very powerful
+ #>
+
+ $spec3 = New-Object VMware.Vim.VirtualMachineConfigSpec
+ $spec3.NestedHVEnabled = $true
+ $spec3.Flags = New-Object VMware.Vim.VirtualMachineFlagInfo
+ $spec3.Flags.VbsEnabled = $true
+ $spec3.Flags.VvtdEnabled = $true
+ $RPSVMNameArraySrv16[$i].ExtensionData.ReconfigVM($spec3)
+
+
+
+ Start-Sleep -Seconds 2
         Start-VM -VM $RPSVMNameArraySrv16[$i]
         #-RunAsync Do not add to New-Vm command if you want to use Start-VM -VM $myVM command
       }
