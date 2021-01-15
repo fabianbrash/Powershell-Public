@@ -13,5 +13,5 @@ $vc = "vc1"
 
 Connect-VIServer -Server $vc
 
-Get-Cluster | Get-VM | Select-Object -Property @{name='Cluster';e={$_.VMHost.Parent}}, Name, VmHost | Format-Table -AutoSize
-#Get-Cluster | Get-VM | Select-Object -Property @{name='Cluster';e={$_.VMHost.Parent}}, Name, VmHost | Export-Csv -Path C:\data.csv -NoTypeInformation
+Get-Cluster | Get-VM | Select-Object -Property @{name='Cluster';e={$_.VMHost.Parent}}, Name, VMHost | Format-Table -AutoSize
+#Get-Cluster | Get-VM | Select-Object -Property @{name='Cluster';e={$_.VMHost.Parent}}, Name, VMHost | Export-Csv -Path C:\data.csv -NoTypeInformation
