@@ -1,5 +1,6 @@
 <#
 ## Deploy VM from content library
+## REF:https://communities.vmware.com/t5/VMware-PowerCLI-Discussions/Get-List-of-VMs-Datastores-and-Folder-name-per-Cluster/m-p/2199933
 #>
 
 
