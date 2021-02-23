@@ -9,6 +9,6 @@ $licenseServer = "my_server"
 $licenseMode = 4  <# 4=per user 2=per device #>
 
 New-ItemProperty -Path $KEY -Name "LicenseServers" -PropertyType String -Value $licenseServer
-New-ItemProperty -Path $KEY -Name "LicenseMode" -PropertyType DWord -Value $licenseMode
+New-ItemProperty -Path $KEY -Name "LicensingMode" -PropertyType DWord -Value $licenseMode
 
 Restart-Computer -Confirm:$false
