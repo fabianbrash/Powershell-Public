@@ -1,3 +1,5 @@
+##Note I am pretty sure this requires WinRM to work, so make sure it's configured in your environment
+
 Clear-Host
 
 $s = New-PSSession -ComputerName CompA,CompB,CompC
