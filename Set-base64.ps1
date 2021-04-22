@@ -1,5 +1,6 @@
 <#
   Purpose: Base64 Encode and Decode a string
+  Inspiration: https://adsecurity.org/?p=478
 #>
 
 Clear-Host
