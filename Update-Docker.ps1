@@ -15,4 +15,4 @@ Start-Sleep -Seconds 10
 
 Restart-Service docker
 
-Restart-Compute -Confirm:$false
+Restart-Computer -Confirm:$false
