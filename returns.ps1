@@ -24,7 +24,7 @@ function returnHash {
     param()
 
   $user = @{
-    id = Get-Random -Maximum 11;
+    id = (New-Guid | Select-Object -ExpandProperty Guid) -replace '-';
     name = "User1";
     age = Get-Random -Minimum 1 -Maximum 100
 
