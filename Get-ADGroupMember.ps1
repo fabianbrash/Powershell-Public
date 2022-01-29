@@ -30,7 +30,7 @@ $VMs = Get-VM -Name $VMList
 
 $code3 = @"
 Get-LocalGroupMember -
-Name 'Administrators' | where{$_.Name -eq $theGroup}
+Name 'Administrators' | where{$_.Name -like '*'+$theGroup}
 "@
 
 
