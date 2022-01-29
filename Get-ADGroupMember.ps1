@@ -33,6 +33,9 @@ Get-LocalGroupMember -
 Name 'Administrators' | where{$_.Name -like '*'+$theGroup}
 "@
 
+<# Get creds for OS #>
+$cred = Get-Credentials
+
 
 $sINvoke = @{
     VM = $VMs
