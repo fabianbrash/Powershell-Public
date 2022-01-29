@@ -29,8 +29,14 @@ $theGroup = "MyGroup"
 $VMs = Get-VM -Name $VMList
 
 $code3 = @"
-Get-LocalGroupMember -
+$found = Get-LocalGroupMember -
 Name 'Administrators' | where{$_.Name -like '*'+$theGroup}
+if($found) {
+    Write-Host "$theGroup found on $env:COMPUTERNAME"
+}
+else {
+    Write-Host "Did not find $theGroup"
+}
 "@
 
 <# Get creds for OS #>
