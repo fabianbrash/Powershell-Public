@@ -77,3 +77,5 @@ $sINvoke = @{
 }
 
 Invoke-VMScript @sINvoke
+
+Disconnect-VIServer * -force -Confirm:$false
