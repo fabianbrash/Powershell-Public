@@ -15,6 +15,10 @@ Set-PowerCLIConfiguration -DefaultVIServerMode Multiple -Scope User -Confirm:$fa
 <# Do this for long vMotions 12.5 Hours for the script to complete #>
 Set-PowerCLIConfiguration -WebOperationTimeoutSeconds 45000 -Scope User -Confirm:$false | Out-Null
 
+####Ignore Certificate issues this resolves an issue with New-VM in PowerCLI 11.0 but I'm certain for peace of mind just do this by default
+
+Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -confirm:$false | Out-Null
+
 $vc = "vc"
 
 
