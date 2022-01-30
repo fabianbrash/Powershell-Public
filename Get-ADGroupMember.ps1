@@ -23,7 +23,8 @@ Connect-VIServer -Server $vc  -Credential $vcCred
 
 $VM = Get-VM -Name (Read-Host "Enter VM Name") #Replace this string with your VM name
 
-$VMList = @()
+#$VMList = @()
+$VMList = Get-Content -Path C:\path_to_text_file\file.txt
 $theGroup = "MyGroup"
 
 $VMs = Get-VM -Name $VMList
@@ -42,17 +43,20 @@ else {
 <# Get creds for OS #>
 $cred = Get-Credentials
 
+$VMs | ForEach-Object {
 
-$sINvoke = @{
-    VM = $VMs
-    GuestCredential = $cred
-    ToolsWaitSecs = 120
-    ScriptText = $code3
-    ScriptType = PowerShell
+    $sINvoke = @{
+      VM = $_
+      GuestCredential = $cred
+      ToolsWaitSecs = 120
+      ScriptText = $code3
+      ScriptType = PowerShell
+    }
+
+
+    Invoke-VMScript @sINvoke
+
 }
-
-
-Invoke-VMScript @sINvoke
 
 
 Disconnect-VIServer * -force -Confirm:$false
