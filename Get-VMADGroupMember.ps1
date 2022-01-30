@@ -45,7 +45,7 @@ else {
 "@
 
 <# Get creds for OS #>
-$cred = Get-Credentials
+$cred = Get-Credential
 
 $VMs | ForEach-Object {
 
