@@ -3,6 +3,7 @@ Clear-Host
 
 $thePath_or_Share = "C:\temp"
 
+#$thePath_or_Share = "\\theshare\folder"
 
 $FolderPath = Get-ChildItem -Directory -Path $thePath_or_Share -Recurse -Force
 $Output = @()
