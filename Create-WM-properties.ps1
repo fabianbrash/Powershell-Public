@@ -19,6 +19,7 @@ Set-PowerCLIConfiguration -WebOperationTimeoutSeconds 45000 -Confirm:$false | Ou
 $vc = "VC_IP_FQDN"
 $namespaces = @("dev", "ssc", "prod")
 $cluster = "cluster-01"
+$spbmpolicy = "gold"
 
 
 
@@ -47,7 +48,7 @@ Write-Output "Assigning a storage policy to all namespaces..."
 
 Start-Sleep -Seconds 2
 
-$sp = Get-SpbmStoragePolicy -Name "goldsp"
+$sp = Get-SpbmStoragePolicy -Name $spbmpolicy
 
 foreach($spbm in $namespaces) {
     
