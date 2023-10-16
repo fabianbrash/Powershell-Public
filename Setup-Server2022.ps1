@@ -1,5 +1,8 @@
 Clear-Host
 
+<# Let's speed up our downloads.. #>
+$ProgressPreference = 'SilentlyContinue'
+
 
 ## Install chocolatey
 
@@ -13,13 +16,17 @@ choco install tanzu-cli
 
 ## We need to download these packages
 
-https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Invoke-WebRequest -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
-https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/f1c7c505b9934655be2195c074913cbf_License1.xml
 
-https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3
 
-https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx
+iwr -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/f1c7c505b9934655be2195c074913cbf_License1.xml -OutFile f1c7c505b9934655be2195c074913cbf_License1.xml
+
+
+iwr -URI https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3 -OutFile microsoft.ui.xaml.2.7.3.nupkg
+
+
+iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
 
 ## Try to install winget
 
