@@ -25,6 +25,12 @@ iwr -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-pre
 
 iwr -URI https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3 -OutFile microsoft.ui.xaml.2.7.3.nupkg
 
+## We need to rename this so we can unzip it
+
+Rename-Item -Path .\microsoft.ui.xaml.2.7.3.nupkg -NewName .\microsoft.ui.xaml.2.7.3.zip
+
+Expand-Archive .\microsoft.ui.xaml.2.7.3.zip
+
 
 iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
 
