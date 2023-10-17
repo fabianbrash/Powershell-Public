@@ -14,6 +14,9 @@ $arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --sourc
 $arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget'
 
 $arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget'
+$arg4 = 'choco install tanzu-cli --yes'
+$arg5 = 'choco install firefox --yes'
+$arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget'
 
 ## Install chocolatey
 
@@ -22,7 +25,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 ## install tanzu cli
 
-choco install tanzu-cli --yes
+Start-Process powershell.exe -ArgumentList $arg4 -Wait
+
+## install Firefox
+
+Start-Process powershell.exe -ArgumentList $aarg5 -Wait
 
 
 ## We need to download these packages
@@ -66,4 +73,6 @@ Start-Process powershell.exe -ArgumentList $arg1 -Wait
 Start-Process powershell.exe -ArgumentList $arg2 -Wait
 
 Start-Process powershell.exe -ArgumentList $arg3 -Wait
+
+Start-Process powershell.exe -ArgumentList $arg6 -Wait
 
