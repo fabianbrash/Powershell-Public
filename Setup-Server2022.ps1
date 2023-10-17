@@ -57,9 +57,9 @@ Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.Deskto
 
 ## If winget is installed thse are some packages that would be nice to have
 
-Start-Process powershell.exe -ArgumentList $arg1
+Start-Process powershell.exe -ArgumentList $arg1 -Wait
 
-Start-Process powershell.exe -ArgumentList $arg2
+Start-Process powershell.exe -ArgumentList $arg2 -Wait
 
-Start-Process powershell.exe -ArgumentList $arg3
+Start-Process powershell.exe -ArgumentList $arg3 -Wait
 
