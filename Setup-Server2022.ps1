@@ -9,16 +9,16 @@ New-Item -ItemType Directory -Path $profile\"Downloads\winget"
 
 $folder='\Downloads\winget\'
 
-$arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget'
+$arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget --silent --accept-package-agreements --accept-source-agreements'
 
-$arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget'
+$arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget --silent --accept-package-agreements --accept-source-agreements'
 
-$arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget'
+$arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
 $arg4 = 'choco install tanzu-cli --yes'
 $arg5 = 'choco install firefox --yes'
-$arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget'
-$arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --version 1.19.2831.0 --source winget'
-$arg8 = 'winget install --id Microsoft.PowerShell --version 7.3.8.0 --source winget'
+$arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --version 1.19.2831.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg8 = 'winget install --id Microsoft.PowerShell --version 7.3.8.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
 
 ## Install chocolatey
 
@@ -54,8 +54,6 @@ Expand-Archive -Path $profile$folder"microsoft.ui.xaml.2.7.3.zip" -DestinationPa
 
 iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
-iwr -URI https://github.com/microsoft/terminal/releases/download/v1.19.2831.0/Microsoft.WindowsTerminalPreview_1.19.2831.0_8wekyb3d8bbwe.msixbundle -OutFile $profile$folder"Microsoft.WindowsTerminalPreview_1.19.2831.0_8wekyb3d8bbwe.msixbundle"
-
 ## Try to install winget
 
 Add-AppxPackage -Path $profile$folder"tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
@@ -65,10 +63,8 @@ Add-AppxPackage -Path $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
 Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath $profile$folder"f1c7c505b9934655be2195c074913cbf_License1.xml" -Verbose
 
-Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.WindowsTerminalPreview_1.19.2831.0_8wekyb3d8bbwe.msixbundle" -SkipLicense -Verbose
 
-
-## If winget is installed thse are some packages that would be nice to have
+## If winget is installed successfully these are some packages that would be nice to have
 
 Start-Process powershell.exe -ArgumentList $arg1 -Wait
 
