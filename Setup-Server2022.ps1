@@ -4,7 +4,10 @@ Clear-Host
 $ProgressPreference = 'SilentlyContinue'
 
 $profile=$env:USERPROFILE
-$folder='\Downloads\'
+
+New-Item -ItemType Directory -Path $profile\"Downloads\winget"
+
+$folder='\Downloads\winget\'
 
 
 ## Install chocolatey
