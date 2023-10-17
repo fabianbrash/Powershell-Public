@@ -9,16 +9,16 @@ New-Item -ItemType Directory -Path $profile\"Downloads\winget"
 
 $folder='\Downloads\winget\'
 
-$arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget --accept-package-agreements --accept-source-agreements'
 
-$arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget --accept-package-agreements --accept-source-agreements'
 
-$arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget --accept-package-agreements --accept-source-agreements'
 $arg4 = 'choco install tanzu-cli --yes'
 $arg5 = 'choco install firefox --yes'
-$arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget --silent --accept-package-agreements --accept-source-agreements'
-$arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --version 1.19.2831.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
-$arg8 = 'winget install --id Microsoft.PowerShell --version 7.3.8.0 --source winget --silent --accept-package-agreements --accept-source-agreements'
+$arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget --accept-package-agreements --accept-source-agreements'
+$arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --version 1.19.2831.0 --source winget --accept-package-agreements --accept-source-agreements'
+$arg8 = 'winget install --id Microsoft.PowerShell --version 7.3.8.0 --source winget --accept-package-agreements --accept-source-agreements'
 
 ## Install chocolatey
 
