@@ -3,6 +3,9 @@ Clear-Host
 <# Let's speed up our downloads.. #>
 $ProgressPreference = 'SilentlyContinue'
 
+$profile=$env:USERPROFILE
+$folder='\Downloads\'
+
 
 ## Install chocolatey
 
@@ -16,7 +19,7 @@ choco install tanzu-cli
 
 ## We need to download these packages
 
-Invoke-WebRequest -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Invoke-WebRequest -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $profile$folderMicrosoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
 
 
