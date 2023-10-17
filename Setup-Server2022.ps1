@@ -19,32 +19,32 @@ choco install tanzu-cli
 
 ## We need to download these packages
 
-Invoke-WebRequest -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $profile$folderMicrosoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+Invoke-WebRequest -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $profile$folder"Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
 
 
-iwr -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/f1c7c505b9934655be2195c074913cbf_License1.xml -OutFile f1c7c505b9934655be2195c074913cbf_License1.xml
+iwr -URI https://github.com/microsoft/winget-cli/releases/download/v1.7.2782-preview/f1c7c505b9934655be2195c074913cbf_License1.xml -OutFile $profile$folder"f1c7c505b9934655be2195c074913cbf_License1.xml"
 
 
-iwr -URI https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3 -OutFile microsoft.ui.xaml.2.7.3.nupkg
+iwr -URI https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3 -OutFile $profile$folder"microsoft.ui.xaml.2.7.3.nupkg"
 
 ## We need to rename this so we can unzip it
 
-Rename-Item -Path .\microsoft.ui.xaml.2.7.3.nupkg -NewName .\microsoft.ui.xaml.2.7.3.zip
+Rename-Item -Path $profile$folder"microsoft.ui.xaml.2.7.3.nupkg" -NewName $profile$folder"microsoft.ui.xaml.2.7.3.zip"
 
-Expand-Archive .\microsoft.ui.xaml.2.7.3.zip
+Expand-Archive $profile$folder"microsoft.ui.xaml.2.7.3.zip"
 
 
-iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
+iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
 ## Try to install winget
 
 Add-AppxPackage -Path C:\Users\Administrator\Downloads\microsoft.ui.xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
 
-Add-AppxPackage -Path .\Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage -Path $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
 
-Add-AppxProvisionedPackage -Online -PackagePath .\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -LicensePath .\f1c7c505b9934655be2195c074913cbf_License1.xml -Verbose
+Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath $profile$folder"f1c7c505b9934655be2195c074913cbf_License1.xml" -Verbose
 
 
 ## If winget is installed thse are some packages that would be nice to have
