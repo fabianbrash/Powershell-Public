@@ -32,7 +32,7 @@ iwr -URI https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3 -OutFile $
 
 Rename-Item -Path $profile$folder"microsoft.ui.xaml.2.7.3.nupkg" -NewName $profile$folder"microsoft.ui.xaml.2.7.3.zip"
 
-Expand-Archive $profile$folder"microsoft.ui.xaml.2.7.3.zip"
+Expand-Archive -Path $profile$folder"microsoft.ui.xaml.2.7.3.zip" -DestinationPath $profile$folder
 
 
 iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
