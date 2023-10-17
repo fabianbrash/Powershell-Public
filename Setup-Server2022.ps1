@@ -22,7 +22,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 ## install tanzu cli
 
-choco install tanzu-cli
+choco install tanzu-cli --yes
 
 
 ## We need to download these packages
@@ -56,7 +56,7 @@ Add-AppxPackage -Path $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
 Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath $profile$folder"f1c7c505b9934655be2195c074913cbf_License1.xml" -Verbose
 
-Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.WindowsTerminalPreview_1.19.2831.0_8wekyb3d8bbwe.msixbundle" -Verbose
+Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.WindowsTerminalPreview_1.19.2831.0_8wekyb3d8bbwe.msixbundle" -SkipLicense -Verbose
 
 
 ## If winget is installed thse are some packages that would be nice to have
