@@ -42,7 +42,7 @@ iwr -URI https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile $profil
 
 ## Try to install winget
 
-Add-AppxPackage -Path $profile$folder"microsoft.ui.xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+Add-AppxPackage -Path $profile$folder"tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
 
 Add-AppxPackage -Path $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
