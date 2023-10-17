@@ -31,7 +31,7 @@ Start-Process powershell.exe -ArgumentList $arg4 -Wait
 
 ## install Firefox
 
-Start-Process powershell.exe -ArgumentList $aarg5 -Wait
+Start-Process powershell.exe -ArgumentList $arg5 -Wait
 
 
 ## We need to download these packages
