@@ -9,6 +9,11 @@ New-Item -ItemType Directory -Path $profile\"Downloads\winget"
 
 $folder='\Downloads\winget\'
 
+$arg1 = 'winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget'
+
+$arg2 = 'winget install --id Amazon.AWSCLI --version 2.13.26 --source winget'
+
+$arg3 = 'winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget'
 
 ## Install chocolatey
 
@@ -52,9 +57,9 @@ Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.Deskto
 
 ## If winget is installed thse are some packages that would be nice to have
 
-winget install --id Microsoft.VisualStudioCode --version 1.83.1 --source winget
+Start-Process pwsh.exe -ArgumentList $arg1
 
-winget install --id Amazon.AWSCLI --version 2.13.26 --source winget
+Start-Process pwsh.exe -ArgumentList $arg2
 
-winget install --id Microsoft.AzureCLI --version 2.53.0 --source winget
+Start-Process pwsh.exe -ArgumentList $arg3
 
