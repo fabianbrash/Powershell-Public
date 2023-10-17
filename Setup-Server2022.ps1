@@ -18,6 +18,7 @@ $arg4 = 'choco install tanzu-cli --yes'
 $arg5 = 'choco install firefox --yes'
 $arg6 = 'winget install --id Google.Chrome --version 118.0.5993.71 --source winget'
 $arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --version 1.19.2831.0 --source winget'
+$arg8 = 'winget install --id Microsoft.PowerShell --version 7.3.8.0 --source winget'
 
 ## Install chocolatey
 
@@ -79,3 +80,4 @@ Start-Process powershell.exe -ArgumentList $arg6 -Wait
 
 Start-Process powershell.exe -ArgumentList $arg7 -Wait
 
+Start-Process powershell.exe -ArgumentList $arg8 -Wait
