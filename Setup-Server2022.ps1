@@ -54,11 +54,11 @@ function installpackages {
 
     ## install tanzu cli
 
-    Start-Process powershell.exe -ArgumentList $arg4 -Wait
+    Start-Process powershell.exe -ArgumentList $arg4 -Verb RunAs -Wait
 
     ## install Firefox
 
-    Start-Process powershell.exe -ArgumentList $arg5 -Wait
+    Start-Process powershell.exe -ArgumentList $arg5 -Verb RunAs -Wait
 
     ## Try to install winget
 
