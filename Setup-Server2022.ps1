@@ -19,6 +19,7 @@ $arg5 = 'choco install firefox --yes'
 $arg6 = 'winget install --id Google.Chrome.Beta --source winget --accept-package-agreements --accept-source-agreements'
 $arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --source winget --accept-package-agreements --accept-source-agreements'
 $arg8 = 'winget install --id Microsoft.PowerShell --source winget --accept-package-agreements --accept-source-agreements'
+$arg9 = 'winget install --id Postman.Postman --source winget --accept-package-agreements --accept-source-agreements'
 
 ## Install chocolatey
 
@@ -77,3 +78,5 @@ Start-Process powershell.exe -ArgumentList $arg6 -Wait
 Start-Process powershell.exe -ArgumentList $arg7 -Wait
 
 Start-Process powershell.exe -ArgumentList $arg8 -Wait
+
+Start-Process powershell.exe -ArgumentList $arg9 -Wait
