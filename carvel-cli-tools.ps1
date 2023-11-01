@@ -4,9 +4,10 @@ Clear-Host
 $ProgressPreference = 'SilentlyContinue'
 
 $profile=$env:USERPROFILE
-$folder = "\Downloads\tanzu-cli\"
+$folder = "C:\Program Files\tanzu-cli\"
 
-New-Item -ItemType Directory -Path $profile$folder
+#New-Item -ItemType Directory -Path $profile$folder
+New-Item -ItemType Directory 'C:\Program Files\tanzu-cli'
 
 $ytturi = "https://github.com/carvel-dev/ytt/releases/download/v0.45.6/ytt-windows-amd64.exe"
 $imgpkguri = "https://github.com/carvel-dev/imgpkg/releases/download/v0.39.0/imgpkg-windows-amd64.exe"
@@ -18,12 +19,12 @@ $kctrluri = "https://github.com/carvel-dev/kapp-controller/releases/download/v0.
 function downloadpayloads {
 
 
-    iwr -URI $ytturi -OutFile $profile$folder"ytt-windows-amd64.exe"
-    iwr -URI $imgpkguri -OutFile $profile$folder"imgpkg-windows-amd64.exe"
-    iwr -URI $kblduri -OutFile $profile$folder"kbld-windows-amd64.exe"
-    iwr -URI $kappuri -OutFile $profile$folder"kapp-windows-amd64.exe"
-    iwr -URI $vendiruri -OutFile $profile$folder"vendir-windows-amd64.exe"
-    iwr -URI $kctrluri -OutFile $profile$folder"kctrl-windows-amd64.exe"
+    iwr -URI $ytturi -OutFile $folder"ytt-windows-amd64.exe"
+    iwr -URI $imgpkguri -OutFile $folder"imgpkg-windows-amd64.exe"
+    iwr -URI $kblduri -OutFile $folder"kbld-windows-amd64.exe"
+    iwr -URI $kappuri -OutFile $folder"kapp-windows-amd64.exe"
+    iwr -URI $vendiruri -OutFile $folder"vendir-windows-amd64.exe"
+    iwr -URI $kctrluri -OutFile $folder"kctrl-windows-amd64.exe"
 
 
 }
@@ -31,12 +32,23 @@ function downloadpayloads {
 
 function renamefiles {
 
-    Rename-Item -Path $profile$folder"ytt-windows-amd64.exe" -NewName ytt.exe
-    Rename-Item -Path $profile$folder"imgpkg-windows-amd64.exe" -NewName imgpkg.exe
-    Rename-Item -Path $profile$folder"kbld-windows-amd64.exe" -NewName kbld.exe
-    Rename-Item -Path $profile$folder"kapp-windows-amd64.exe" -NewName kapp.exe
-    Rename-Item -Path $profile$folder"vendir-windows-amd64.exe" -NewName vendir.exe
-    Rename-Item -Path $profile$folder"kctrl-windows-amd64.exe" -NewName kctrl.exe
+    Rename-Item -Path $folder"ytt-windows-amd64.exe" -NewName ytt.exe
+    Rename-Item -Path $folder"imgpkg-windows-amd64.exe" -NewName imgpkg.exe
+    Rename-Item -Path $folder"kbld-windows-amd64.exe" -NewName kbld.exe
+    Rename-Item -Path $folder"kapp-windows-amd64.exe" -NewName kapp.exe
+    Rename-Item -Path $folder"vendir-windows-amd64.exe" -NewName vendir.exe
+    Rename-Item -Path $folder"kctrl-windows-amd64.exe" -NewName kctrl.exe
+
+}
+
+function setpath {
+
+
+
+    [Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";C:\Program Files\tanzu-cli",
+    [EnvironmentVariableTarget]::Machine)
 
 }
 
@@ -44,3 +56,4 @@ function renamefiles {
 
 downloadpayloads
 renamefiles
+setpath
