@@ -29,6 +29,7 @@ $kblduri = "https://github.com/carvel-dev/kbld/releases/download/v0.38.1/kbld-wi
 $kappuri = "https://github.com/carvel-dev/kapp/releases/download/v0.59.1/kapp-windows-amd64.exe"
 $vendiruri = "https://github.com/carvel-dev/vendir/releases/download/v0.35.2/vendir-windows-amd64.exe"
 $kctrluri = "https://github.com/carvel-dev/kapp-controller/releases/download/v0.48.2/kctrl-windows-amd64.exe"
+$tanzucliuri = "https://github.com/vmware-tanzu/tanzu-cli/releases/download/v1.1.0/tanzu-cli-windows-amd64.zip"
 
 function downloadpayloads {
 
@@ -40,6 +41,15 @@ function downloadpayloads {
     iwr -URI $kappuri -OutFile $folder"kapp-windows-amd64.exe"
     iwr -URI $vendiruri -OutFile $folder"vendir-windows-amd64.exe"
     iwr -URI $kctrluri -OutFile $folder"kctrl-windows-amd64.exe"
+    iwr -Uri $tanzucliuri -OutFile $folder"tanzu-cli-windows-amd64.zip"
+    # We need to expand the above and do some more work since it's a zip file
+    Expand-Archive -Path $folder"tanzu-cli-windows-amd64.zip" -DestinationPath $folder
+    Rename-Item -Path $folder"\v1.1.0\tanzu-cli-windows_amd64.exe" -NewName tanzu.exe
+    Start-Sleep -Seconds 2
+    Remove-Item -Path $folder"tanzu-cli-windows-amd64.zip" -Force -Confirm:$false
+    Move-Item -Path $folder"\v1.1.0\tanzu.exe" -Destination $folder
+    Start-Sleep -Seconds 2
+    Remove-Item -Path $folder"v1.1.0" -Force -Confirm:$false
 
 
 }
