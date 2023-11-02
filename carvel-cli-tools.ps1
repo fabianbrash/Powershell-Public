@@ -4,10 +4,24 @@ Clear-Host
 $ProgressPreference = 'SilentlyContinue'
 
 $profile=$env:USERPROFILE
-$folder = "C:\Program Files\tanzu-cli\"
+$usermode=1
+
+if($usermode -eq 0) {
+    
+    New-Item -ItemType Directory 'C:\Program Files\tanzu-cli'
+    $folder = "C:\Program Files\tanzu-cli\"
+    Write-Host $folder
+}
+
+else {
+    
+    New-Item -ItemType Directory $profile"\tanzu-cli"
+    $folder = $profile+"\tanzu-cli\"
+    Write-Host $folder
+}
 
 #New-Item -ItemType Directory -Path $profile$folder
-New-Item -ItemType Directory 'C:\Program Files\tanzu-cli'
+
 
 $ytturi = "https://github.com/carvel-dev/ytt/releases/download/v0.45.6/ytt-windows-amd64.exe"
 $imgpkguri = "https://github.com/carvel-dev/imgpkg/releases/download/v0.39.0/imgpkg-windows-amd64.exe"
@@ -47,14 +61,23 @@ function renamefiles {
 function setpath {
 
 
-    Write-Output "Setting our path..."
-
+    if($usermode -eq 0) {
+    Write-Output "Setting our path for all users..."
     [Environment]::SetEnvironmentVariable(
     "Path",
     [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";C:\Program Files\tanzu-cli",
     [EnvironmentVariableTarget]::Machine)
+    }
 
-}
+    else {
+    Write-Output "Setting our path for the current user only..."
+    [Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User) + ";$folder",
+    [EnvironmentVariableTarget]::User)
+    }
+    
+ }
 
 
 
