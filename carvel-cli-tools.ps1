@@ -18,6 +18,7 @@ $kctrluri = "https://github.com/carvel-dev/kapp-controller/releases/download/v0.
 
 function downloadpayloads {
 
+    Write-Output "Downloading packages..."
 
     iwr -URI $ytturi -OutFile $folder"ytt-windows-amd64.exe"
     iwr -URI $imgpkguri -OutFile $folder"imgpkg-windows-amd64.exe"
@@ -32,6 +33,8 @@ function downloadpayloads {
 
 function renamefiles {
 
+    Write-Output "Renaming files..."
+
     Rename-Item -Path $folder"ytt-windows-amd64.exe" -NewName ytt.exe
     Rename-Item -Path $folder"imgpkg-windows-amd64.exe" -NewName imgpkg.exe
     Rename-Item -Path $folder"kbld-windows-amd64.exe" -NewName kbld.exe
@@ -44,6 +47,7 @@ function renamefiles {
 function setpath {
 
 
+    Write-Output "Setting our path..."
 
     [Environment]::SetEnvironmentVariable(
     "Path",
