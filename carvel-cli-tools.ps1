@@ -42,16 +42,9 @@ function downloadpayloads {
     iwr -URI $vendiruri -OutFile $folder"vendir-windows-amd64.exe"
     iwr -URI $kctrluri -OutFile $folder"kctrl-windows-amd64.exe"
     iwr -Uri $tanzucliuri -OutFile $folder"tanzu-cli-windows-amd64.zip"
-    # We need to expand the above and do some more work since it's a zip file
+    # We need to expand the above
     Expand-Archive -Path $folder"tanzu-cli-windows-amd64.zip" -DestinationPath $folder
-    Rename-Item -Path $folder"\v1.1.0\tanzu-cli-windows_amd64.exe" -NewName tanzu.exe
-    Start-Sleep -Seconds 2
-    Remove-Item -Path $folder"tanzu-cli-windows-amd64.zip" -Force -Confirm:$false
-    Move-Item -Path $folder"\v1.1.0\tanzu.exe" -Destination $folder
-    Start-Sleep -Seconds 2
-    Remove-Item -Path $folder"v1.1.0" -Force -Confirm:$false
-
-
+   
 }
 
 
@@ -65,6 +58,11 @@ function renamefiles {
     Rename-Item -Path $folder"kapp-windows-amd64.exe" -NewName kapp.exe
     Rename-Item -Path $folder"vendir-windows-amd64.exe" -NewName vendir.exe
     Rename-Item -Path $folder"kctrl-windows-amd64.exe" -NewName kctrl.exe
+    # We need to do some extra work since it's a zip file
+    Rename-Item -Path $folder"\v1.1.0\tanzu-cli-windows_amd64.exe" -NewName tanzu.exe
+    Start-Sleep -Seconds 2
+    Move-Item -Path $folder"\v1.1.0\tanzu.exe" -Destination $folder
+    Start-Sleep -Seconds 2
 
 }
 
@@ -89,8 +87,24 @@ function setpath {
     
  }
 
+ function cleanup {
+ 
+     Write-Output "Cleaning up..."
+     Remove-Item -Path $folder"tanzu-cli-windows-amd64.zip" -Force -Confirm:$false
+     Remove-Item -Path $folder"v1.1.0" -Force -Confirm:$false   
+ 
+ }
+
+ function launch {
+     
+     # Assumes we have powershell >=6
+     Start-Process pwsh
+ 
+ }
 
 
 downloadpayloads
 renamefiles
 setpath
+cleanup
+launch
