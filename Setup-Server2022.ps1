@@ -51,7 +51,7 @@ function downloadpayloads {
 
 }
 
-function installpackages {
+<#function installpackages {
 
     ## install tanzu cli
 
@@ -87,8 +87,55 @@ function installpackages {
 
     Start-Process powershell.exe -ArgumentList $arg10 -Verb RunAs -Wait
 
+}#>
+
+<# Function updated by ChatGPT #>
+
+function installpackages {
+    ## install tanzu cli
+    $process1 = Start-Process powershell.exe -ArgumentList $arg4 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process1.ExitCode "Error installing Tanzu CLI"
+
+    ## install Firefox
+    $process2 = Start-Process powershell.exe -ArgumentList $arg5 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process2.ExitCode "Error installing Firefox"
+
+    ## Try to install winget
+    Add-AppxPackage -Path $profile$folder"tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+    Add-AppxPackage -Path $profile$folder"Microsoft.VCLibs.x64.14.00.Desktop.appx"
+    Add-AppxProvisionedPackage -Online -PackagePath $profile$folder"Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath $profile$folder"f1c7c505b9934655be2195c074913cbf_License1.xml" -Verbose
+
+    ## If winget is installed successfully these are some packages that would be nice to have
+    $process3 = Start-Process powershell.exe -ArgumentList $arg1 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process3.ExitCode "Error installing Microsoft Visual Studio Code"
+
+    $process4 = Start-Process powershell.exe -ArgumentList $arg2 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process4.ExitCode "Error installing Amazon AWS CLI"
+
+    $process5 = Start-Process powershell.exe -ArgumentList $arg3 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process5.ExitCode "Error installing Microsoft Azure CLI"
+
+    $process6 = Start-Process powershell.exe -ArgumentList $arg6 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process6.ExitCode "Error installing Google Chrome Beta"
+
+    $process7 = Start-Process powershell.exe -ArgumentList $arg7 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process7.ExitCode "Error installing Microsoft Windows Terminal Preview"
+
+    $process8 = Start-Process powershell.exe -ArgumentList $arg8 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process8.ExitCode "Error installing Microsoft PowerShell"
+
+    $process9 = Start-Process powershell.exe -ArgumentList $arg9 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process9.ExitCode "Error installing Postman"
+
 }
 
+
+function CheckErrorCode($exitCode, $errorMessage) {
+    if ($exitCode -ne 0) {
+        Write-Error $errorMessage
+        exit $exitCode
+    }
+}
 
 installchoco
 downloadpayloads
