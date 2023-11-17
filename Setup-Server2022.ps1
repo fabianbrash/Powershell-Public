@@ -127,6 +127,10 @@ function installpackages {
     $process9 = Start-Process powershell.exe -ArgumentList $arg9 -Verb RunAs -PassThru -Wait -ErrorAction Continue
     CheckErrorCode $process9.ExitCode "Error installing Postman"
 
+    $process10 = Start-Process powershell.exe -ArgumentList $arg10 -Verb RunAs -PassThru -Wait -ErrorAction Continue
+    CheckErrorCode $process9.ExitCode "Error installing 7Zip"
+    
+
 }
 
 
