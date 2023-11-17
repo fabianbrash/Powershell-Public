@@ -20,6 +20,7 @@ $arg6 = 'winget install --id Google.Chrome.Beta --source winget --accept-package
 $arg7 = 'winget install --id Microsoft.WindowsTerminal.Preview --source winget --accept-package-agreements --accept-source-agreements'
 $arg8 = 'winget install --id Microsoft.PowerShell --source winget --accept-package-agreements --accept-source-agreements'
 $arg9 = 'winget install --id Postman.Postman --source winget --accept-package-agreements --accept-source-agreements'
+$arg10 = 'winget install --id 7zip.7zip --source winget --accept-package-agreements --accept-source-agreements'
 
 
 function installchoco {
@@ -83,6 +84,8 @@ function installpackages {
     Start-Process powershell.exe -ArgumentList $arg8 -Verb RunAs -Wait
 
     Start-Process powershell.exe -ArgumentList $arg9 -Verb RunAs -Wait
+
+    Start-Process powershell.exe -ArgumentList $arg10 -Verb RunAs -Wait
 
 }
 
