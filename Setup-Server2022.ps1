@@ -9,7 +9,7 @@ New-Item -ItemType Directory -Path $profile\"Downloads\winget"
 
 $folder='\Downloads\winget\'
 
-$arg1 = 'winget install --id Microsoft.VisualStudioCode --source winget --accept-package-agreements --accept-source-agreements'
+$arg1 = 'winget install --id Microsoft.VisualStudioCode --source winget --scope machine --accept-package-agreements --accept-source-agreements'
 
 $arg2 = 'winget install --id Amazon.AWSCLI --source winget --accept-package-agreements --accept-source-agreements'
 
