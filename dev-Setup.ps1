@@ -64,7 +64,7 @@ function installpackages {
 
     ## install Git
     $process9 = Start-Process powershell.exe -ArgumentList $arg9 -Verb RunAs -PassThru -Wait -ErrorAction Continue
-    CheckErrorCode $process9.ExitCode "Error installing Python3 3.x"
+    CheckErrorCode $process9.ExitCode "Error installing Git"
 }
 
 $policy = Get-ExecutionPolicy
